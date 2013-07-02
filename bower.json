@@ -1,0 +1,10 @@
+{
+  "name": "ww-cyclops",
+  "version": "0.0.0",
+  "main": "cyclops.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ]
+}
