@@ -1,37 +1,37 @@
 var cyclops = function() {
   function interpolate(x0, p, x, y, left, right, tangentLeft, tangentRight) {
     var dx, dy, a, b, s, t;
-    
-    dx = x[p+1] - x[p];
-    dy = y[p+1] - y[p];
-    tanL = tangentLeft[p];
-    tanR = tangentRight[p+1];
 
-    t = (x0-x[p]) / dx;
+    dx = x[p + 1] - x[p];
+    dy = y[p + 1] - y[p];
+    tanL = tangentLeft[p];
+    tanR = tangentRight[p + 1];
+
+    t = (x0 - x[p]) / dx;
     it = (1 - t);
 
     xleftp = x[p] + (left[p] * dx);
-    xrightp = x[p+1] - (right[p+1] * dx);
+    xrightp = x[p + 1] - (right[p + 1] * dx);
 
     yleftp = (tanL && !isNaN(tanL)) ? y[p] + tanL : y[p];
-    yrightp = (tanR && !isNaN(tanR)) ? y[p+1] + tanR : y[p+1];
-    
-    var xo = it*it*it*x[p] + 3*it*it*t*xleftp + 3*it*t*t*xrightp + t*t*t*x[p+1];
-    var yo = it*it*it*y[p] + 3*it*it*t*yleftp + 3*it*t*t*yrightp + t*t*t*y[p+1];
+    yrightp = (tanR && !isNaN(tanR)) ? y[p + 1] + tanR : y[p + 1];
+
+    var xo = it * it * it * x[p] + 3 * it * it * t * xleftp + 3 * it * t * t * xrightp + t * t * t * x[p + 1];
+    var yo = it * it * it * y[p] + 3 * it * it * t * yleftp + 3 * it * t * t * yrightp + t * t * t * y[p + 1];
 
     return [xo, yo];
   }
 
   function buildCurve(x, y, left, right, tangentLeft, tangentRight) {
     return function(t) {
-      if(typeof t === "number") {
+      if (typeof t === 'number') {
         var n = x.length;
         var p, q, mid, a, b;
         p = 0;
-        q = n-1;
-        while(q-p>1) {
-          mid = Math.floor((p+q)/2);
-          if(x[mid] <= t) p = mid;
+        q = n - 1;
+        while (q - p > 1) {
+          mid = Math.floor((p + q) / 2);
+          if (x[mid] <= t) p = mid;
           else q = mid;
         }
         return interpolate(t, p, x, y, left, right, tangentLeft, tangentRight);
@@ -58,15 +58,15 @@ var cyclops = function() {
 
     return guess;
   }
-  
+
   function findBounds(input) {
     var min = 1000000000;
     var max = 0;
-    for(var i = 0; i < input.length; i++){
-      if(min > input[i]){
+    for (var i = 0; i < input.length; i++) {
+      if (min > input[i]) {
         min = input[i];
       }
-      if(max < input[i]){
+      if (max < input[i]) {
         max = input[i];
       }
     }
@@ -79,8 +79,8 @@ var cyclops = function() {
     var min = bounds[0];
     var max = bounds[1];
 
-    for(var i = 0; i < input.length; i++){
-      output.push( (input[i] - min) / (max - min) );
+    for (var i = 0; i < input.length; i++) {
+      output.push((input[i] - min) / (max - min));
     }
 
     return output;
@@ -90,7 +90,7 @@ var cyclops = function() {
     var output = [];
     var scale = 1.0 / (bounds[1] - bounds[0]);
 
-    for(var i = 0; i < input.length; i++){
+    for (var i = 0; i < input.length; i++) {
       output.push(input[i] * scale);
     }
 
@@ -146,9 +146,9 @@ var cyclops = function() {
     }
 
     return {
-      x: normalizeData(xs), 
-      y: ys, 
-      left: left, 
+      x: normalizeData(xs),
+      y: ys,
+      left: left,
       right: right,
       tangentLeft: tangentLeft,
       tangentRight: tangentRight
@@ -202,5 +202,5 @@ var cyclops = function() {
     dimensionalInterpolation: dimensionalInterpolation,
     extractProperty: extractProperty,
     loadCurve: loadCurve
-  }
-} ();
+  };
+}; ();
