@@ -203,4 +203,4 @@ var cyclops = function() {
     extractProperty: extractProperty,
     loadCurve: loadCurve
   };
-}; ();
+}();
